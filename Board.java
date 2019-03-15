@@ -72,5 +72,16 @@ class Board{
             return false;
         }
     }
-
+    public ArrayList<Move> getEmptySpots(){
+        for ( int i = 0; i < 3 ; i++){
+            for ( int j = 0 ; j < 3; j ++){
+                if ( board[i][j] != 'X' && board[i][j] != 'O'){
+                    Move spot = new Move(i, j);
+                    emptySpots.add(spot);
+                }
+            }
+        }
+        return emptySpots;
     }
+
+}
