@@ -1,10 +1,12 @@
 public class Move{
-    int moveIndex;
-    public Move(int index){
-        this.moveIndex = index;
+    int rowIndex;
+    int colIndex;
+    public Move(int rowI, int colI){
+        this.rowIndex = rowI;
+        this.colIndex = colI;
     }
     public String display(){
-        String str = Integer.toString(this.moveIndex);
+        String str = Integer.toString(this.rowIndex) + " " + Integer.toString(this.colIndex);
         return str;
     }
 }
