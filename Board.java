@@ -75,7 +75,7 @@ class Board{
     public ArrayList<Move> getEmptySpots(){
         for ( int i = 0; i < 3 ; i++){
             for ( int j = 0 ; j < 3; j ++){
-                if ( board[i][j] != 'X' && board[i][j] != 'O'){
+                if ( this.board[i][j] != 'X' && this.board[i][j] != 'O'){
                     Move spot = new Move(i, j);
                     emptySpots.add(spot);
                 }
@@ -83,5 +83,58 @@ class Board{
         }
         return emptySpots;
     }
-
+    public void makeMove(Move someMove, char player){
+        board[someMove.rowIndex][someMove.colIndex] = player;
+    }
+    public void humanTurn(){
+        Scanner sc = new Scanner(System.in);
+        char human = 'X';
+        int choice = sc.nextInt();
+        int row = 0;
+        int col = 0;
+        switch(choice){
+            case 1: 
+                    row = 0;
+                    col = 0;
+                    break;
+            case 2: 
+                    row = 0;
+                    col = 1;
+                    break;
+            case 3: 
+                    row = 0;
+                    col = 2;
+                    break;
+            case 4:
+                    row = 1;
+                    col = 0;
+                    break;
+            case 5: 
+                    row = 1;
+                    col = 1;
+                    break;
+            case 6: 
+                    row = 1;
+                    col = 2;
+                    break;
+            case 7: 
+                    row = 2;
+                    col = 0;
+                    break;
+            case 8: 
+                    row = 2;
+                    col = 1;
+                    break;
+            case 9: 
+                    row = 2;
+                    col = 2;
+                    break;
+            default:
+                    System.out.println("Please enter a number between 1 and 9.");
+        }
+        Move thisMove = new Move(row,col);
+        makeMove(thisMove, human);
+        sc.close();
+    }
+    
 }
