@@ -1,6 +1,7 @@
 import java.util.*;
 class Board{
     ArrayList<Move> emptySpots;
+    ArrayList<Score> childrenScores;
     char board[][];
     public Board(){
         board = new char[3][3];
@@ -135,6 +136,18 @@ class Board{
         Move thisMove = new Move(row,col);
         makeMove(thisMove, human);
         sc.close();
+    }
+    //got to implement returnsBestMove() here
+    public Move getBestMove(){
+        int max = Integer.MIN_VALUE;
+        int best = 0;
+        for ( int i = 0; i < childrenScores.size(); i++){
+            if ( childrenScores.get(i).score > max){
+                max = childrenScores.get(i).score;
+                best = i;
+            }
+        }
+        return childrenScores.get(best).someMove;
     }
     
 }
