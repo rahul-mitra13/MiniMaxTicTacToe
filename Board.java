@@ -1,14 +1,16 @@
 import java.util.*;
 class Board{
-    ArrayList<Move> emptySpots;
-    ArrayList<Score> childrenScores;
-    char board[][];
+    ArrayList<Move> emptySpots  = new ArrayList<Move>();
+    char board[][] = new char[3][3];
     public Board(){
-        board = new char[3][3];
-        emptySpots = new ArrayList<Move>();
+        for ( int i = 0; i < 3; i++){
+            for ( int j = 0; j < 3 ; j++){
+                board[i][j] = '_';
+            }
+        }
     }
     public boolean gameOver(){
-        if ( humanWin() == true || AIWin() == true || this.emptySpots.size() == 0 ){
+        if ( humanWin() == true || AIWin() == true || getEmptySpots().isEmpty()){
             return true;
         }
         else{
@@ -76,7 +78,7 @@ class Board{
     public ArrayList<Move> getEmptySpots(){
         for ( int i = 0; i < 3 ; i++){
             for ( int j = 0 ; j < 3; j ++){
-                if ( this.board[i][j] != 'X' && this.board[i][j] != 'O'){
+                if ( this.board[i][j] == '_'){
                     Move spot = new Move(i, j);
                     emptySpots.add(spot);
                 }
@@ -87,13 +89,11 @@ class Board{
     public void makeMove(Move someMove, char player){
         board[someMove.rowIndex][someMove.colIndex] = player;
     }
-    public void humanTurn(){
-        Scanner sc = new Scanner(System.in);
-        char human = 'X';
-        int choice = sc.nextInt();
+    public ArrayList<Integer> humanTurn(int index){
+        ArrayList<Integer> result = new ArrayList<Integer>();
         int row = 0;
         int col = 0;
-        switch(choice){
+        switch(index){
             case 1: 
                     row = 0;
                     col = 0;
@@ -133,9 +133,9 @@ class Board{
             default:
                     System.out.println("Please enter a number between 1 and 9.");
         }
-        Move thisMove = new Move(row,col);
-        makeMove(thisMove, human);
-        sc.close();
+        result.add(row);
+        result.add(col);
+        return result;
     }
     //got to implement returnsBestMove() here
     public Move getBestMove(){
@@ -179,6 +179,7 @@ class Board{
         }
         return list.get(index);
     }
+    ArrayList<Score> childrenScores;
     public void invokeMiniMax(int depth, char player){
         childrenScores = new ArrayList<>();
         minimax(depth, player);
@@ -187,7 +188,7 @@ class Board{
         if (humanWin()){
             return -1;
         }
-        if ( AIWin()){
+        if (AIWin()){
             return 1;
         }
         ArrayList<Move> allowedMoves = getEmptySpots();
@@ -208,17 +209,11 @@ class Board{
             }
             else if ( player == 'X'){
                 makeMove(currentMove, 'X');
-                int currentScore = minimax(depth + 1, 'O');
-                scores.add(currentScore);
+                scores.add(minimax(depth + 1, 'O'));
             }
-            board[currentMove.rowIndex][currentMove.colIndex] = 0;
+            board[currentMove.rowIndex][currentMove.colIndex] = '_';
         }
-        if ( player == 'X'){
-            return getMaxFromList(scores);
-        }
-        else{
-            return getMinFromList(scores);
-        }
+        return player == 'O' ? getMaxFromList(scores): getMinFromList(scores);
     }
 }
     
