@@ -149,5 +149,76 @@ class Board{
         }
         return childrenScores.get(best).someMove;
     }
-    
+    public void print(){
+        for ( int i = 0; i < 3; i++){
+            for ( int j = 0 ; j < 3; j++){
+                System.out.print(this.board[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+    public int getMinFromList(ArrayList<Integer> list){
+        int min = Integer.MAX_VALUE;
+        int index = 0;
+        for ( int i = 0; i < list.size(); i++){
+            if ( list.get(i) < min){
+                min = list.get(i);
+                index = i;
+            }
+        }
+        return list.get(index);
+    }
+    public int getMaxFromList(ArrayList<Integer> list){
+        int max = Integer.MIN_VALUE;
+        int index = 0;
+        for ( int i = 0; i < list.size(); i++){
+            if ( list.get(i) > max){
+                max = list.get(i);
+                index = i;
+            }
+        }
+        return list.get(index);
+    }
+    public void invokeMiniMax(int depth, char player){
+        childrenScores = new ArrayList<>();
+        minimax(depth, player);
+    }
+    public int minimax(int depth, char player){
+        if (humanWin()){
+            return -1;
+        }
+        if ( AIWin()){
+            return 1;
+        }
+        ArrayList<Move> allowedMoves = getEmptySpots();
+        if (allowedMoves.isEmpty()){
+            return 0;
+        }
+        ArrayList<Integer> scores = new ArrayList<Integer>();
+        for ( int i = 0 ; i < allowedMoves.size(); i++){
+            Move currentMove = allowedMoves.get(i);
+            if ( player == 'O'){
+                makeMove(currentMove, 'O');
+                int currentScore = minimax(depth + 1, 'X');
+                scores.add(currentScore);
+                if ( depth == 0){
+                    Score currScore = new Score(currentScore, currentMove);
+                    childrenScores.add(currScore);
+                }
+            }
+            else if ( player == 'X'){
+                makeMove(currentMove, 'X');
+                int currentScore = minimax(depth + 1, 'O');
+                scores.add(currentScore);
+            }
+            board[currentMove.rowIndex][currentMove.colIndex] = 0;
+        }
+        if ( player == 'X'){
+            return getMaxFromList(scores);
+        }
+        else{
+            return getMinFromList(scores);
+        }
+    }
 }
+    
