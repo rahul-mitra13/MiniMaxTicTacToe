@@ -11,6 +11,15 @@ public class TicTacToe{
             int choice = sc.nextInt();
             ArrayList<Integer> humanMove = board.humanTurn(choice);
             Move humansMove = new Move(humanMove.get(0),humanMove.get(1));
+            while ( !board.isMoveEmpty(humansMove)){
+                System.out.println();
+                System.out.println("Please choose a spot that's not occupied.");
+                System.out.println("Enter your move here: ");
+                choice = sc.nextInt();
+                humanMove = board.humanTurn(choice);
+                humansMove = new Move(humanMove.get(0),humanMove.get(1));
+                
+            }
             board.makeMove(humansMove, 'X');
             board.print();
             if ( board.gameOver()){
@@ -27,7 +36,7 @@ public class TicTacToe{
             System.out.println("You won!");
         }
         else{
-            System.out.println("It's a draw");
+            System.out.println("It's a draw!");
         }
         sc.close();
     }

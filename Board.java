@@ -152,16 +152,6 @@ class Board{
         }
         return this.childrenScores.get(best).someMove;
     }
-    public void print(){
-        System.out.println();
-        for ( int i = 0; i < 3; i++){
-            for ( int j = 0 ; j < 3; j++){
-                System.out.print(this.board[i][j] + " ");
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }
     public int getMinFromList(ArrayList<Integer> list){
         int min = Integer.MAX_VALUE;
         int index = 0;
@@ -217,6 +207,25 @@ class Board{
             this.board[currentMove.rowIndex][currentMove.colIndex] = '_';
         }
         return player == 'O' ? getMaxFromList(scores): getMinFromList(scores);
+    }
+    public boolean isMoveEmpty(Move someMove){
+        if (this.board[someMove.rowIndex][someMove.colIndex] != '_'){
+            return false;
+        }
+        else{
+            return true;
+        }
+
+    }
+    public void print(){
+        System.out.println();
+        for ( int i = 0; i < 3; i++){
+            for ( int j = 0 ; j < 3; j++){
+                System.out.print(this.board[i][j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 }
     
