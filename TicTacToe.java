@@ -7,6 +7,7 @@ public class TicTacToe{
         board.print();
         System.out.println("Welcome to TTT! Make your move(row-major order)");
         while (!board.gameOver()){
+            System.out.println();
             int choice = sc.nextInt();
             ArrayList<Integer> humanMove = board.humanTurn(choice);
             Move humansMove = new Move(humanMove.get(0),humanMove.get(1));
@@ -22,7 +23,7 @@ public class TicTacToe{
         if ( board.AIWin()){
             System.out.println("You lost!");
         }
-        else if ( board.humanWin()){
+        else if ( board.humanWin()){//lol never going to happen
             System.out.println("You won!");
         }
         else{

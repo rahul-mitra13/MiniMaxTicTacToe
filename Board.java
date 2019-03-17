@@ -2,6 +2,7 @@ import java.util.*;
 class Board{
     ArrayList<Move> emptySpots;
     char board[][] = new char[3][3];
+    ArrayList<Score> childrenScores;
     public Board(){
         for ( int i = 0; i < 3; i++){
             for ( int j = 0; j < 3 ; j++){
@@ -159,6 +160,7 @@ class Board{
             }
             System.out.println();
         }
+        System.out.println();
     }
     public int getMinFromList(ArrayList<Integer> list){
         int min = Integer.MAX_VALUE;
@@ -182,7 +184,6 @@ class Board{
         }
         return list.get(index);
     }
-    ArrayList<Score> childrenScores;
     public void invokeMiniMax(int depth, char player){
         childrenScores = new ArrayList<>();
         minimax(depth, player);

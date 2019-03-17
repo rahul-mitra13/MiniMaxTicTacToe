@@ -5,8 +5,4 @@ public class Move{
         this.rowIndex = rowI;
         this.colIndex = colI;
     }
-    public String display(){
-        String str = Integer.toString(this.rowIndex) + " " + Integer.toString(this.colIndex);
-        return str;
-    }
 }
