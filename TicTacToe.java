@@ -15,10 +15,10 @@ public class TicTacToe{
             if ( board.gameOver()){
                 break;
             }
-            board.invokeMiniMax(0, 'O');
-            board.makeMove(board.getBestMove(), 'O');
-            board.print();
-        }
+               board.invokeMiniMax(0, 'O');
+               board.makeMove(board.getBestMove(), 'O');
+               board.print();
+         }
         if ( board.AIWin()){
             System.out.println("You lost!");
         }

@@ -1,6 +1,6 @@
 import java.util.*;
 class Board{
-    ArrayList<Move> emptySpots  = new ArrayList<Move>();
+    ArrayList<Move> emptySpots;
     char board[][] = new char[3][3];
     public Board(){
         for ( int i = 0; i < 3; i++){
@@ -10,7 +10,7 @@ class Board{
         }
     }
     public boolean gameOver(){
-        if ( humanWin() == true || AIWin() == true || getEmptySpots().isEmpty()){
+        if ( this.humanWin() == true || this.AIWin() == true || this.getEmptySpots().isEmpty()){
             return true;
         }
         else{
@@ -46,6 +46,7 @@ class Board{
             return false;
         }
     }
+    
     public boolean AIWin(){
         if (this.board[0][0] == 'O' && this.board[0][1] == 'O' && this.board[0][2] == 'O'){//top row
             return true;
@@ -76,18 +77,19 @@ class Board{
         }
     }
     public ArrayList<Move> getEmptySpots(){
+        emptySpots = new ArrayList<>();
         for ( int i = 0; i < 3 ; i++){
             for ( int j = 0 ; j < 3; j ++){
-                if ( this.board[i][j] == '_'){
+                if (this.board[i][j] == '_'){
                     Move spot = new Move(i, j);
-                    emptySpots.add(spot);
+                    this.emptySpots.add(spot);
                 }
             }
         }
-        return emptySpots;
+        return this.emptySpots;
     }
     public void makeMove(Move someMove, char player){
-        board[someMove.rowIndex][someMove.colIndex] = player;
+        this.board[someMove.rowIndex][someMove.colIndex] = player;
     }
     public ArrayList<Integer> humanTurn(int index){
         ArrayList<Integer> result = new ArrayList<Integer>();
@@ -139,17 +141,18 @@ class Board{
     }
     //got to implement returnsBestMove() here
     public Move getBestMove(){
-        int max = Integer.MIN_VALUE;
-        int best = 0;
+        int max = -10000;
+        int best = -1;
         for ( int i = 0; i < childrenScores.size(); i++){
-            if ( childrenScores.get(i).score > max){
+            if ( this.childrenScores.get(i).score > max){
                 max = childrenScores.get(i).score;
                 best = i;
             }
         }
-        return childrenScores.get(best).someMove;
+        return this.childrenScores.get(best).someMove;
     }
     public void print(){
+        System.out.println();
         for ( int i = 0; i < 3; i++){
             for ( int j = 0 ; j < 3; j++){
                 System.out.print(this.board[i][j] + " ");
@@ -185,13 +188,13 @@ class Board{
         minimax(depth, player);
     }
     public int minimax(int depth, char player){
-        if (humanWin()){
-            return -1;
-        }
-        if (AIWin()){
+        if (this.AIWin()){
             return 1;
         }
-        ArrayList<Move> allowedMoves = getEmptySpots();
+        if (this.humanWin()){
+            return -1;
+        }
+        ArrayList<Move> allowedMoves = this.getEmptySpots();
         if (allowedMoves.isEmpty()){
             return 0;
         }
@@ -199,19 +202,18 @@ class Board{
         for ( int i = 0 ; i < allowedMoves.size(); i++){
             Move currentMove = allowedMoves.get(i);
             if ( player == 'O'){
-                makeMove(currentMove, 'O');
+                this.makeMove(currentMove, 'O');
                 int currentScore = minimax(depth + 1, 'X');
                 scores.add(currentScore);
                 if ( depth == 0){
-                    Score currScore = new Score(currentScore, currentMove);
-                    childrenScores.add(currScore);
+                    this.childrenScores.add(new Score(currentScore, currentMove));
                 }
             }
             else if ( player == 'X'){
-                makeMove(currentMove, 'X');
+                this.makeMove(currentMove, 'X');
                 scores.add(minimax(depth + 1, 'O'));
             }
-            board[currentMove.rowIndex][currentMove.colIndex] = '_';
+            this.board[currentMove.rowIndex][currentMove.colIndex] = '_';
         }
         return player == 'O' ? getMaxFromList(scores): getMinFromList(scores);
     }
