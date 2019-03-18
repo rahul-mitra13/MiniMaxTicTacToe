@@ -1,6 +1,7 @@
 /**
  * Project 2 
- * This is a Board object which is used to represent the TicTacToe Board at any given time
+ * This is a Board class which is used to represent the TicTacToe Board at any given time
+ * @version 1.2
  * @author Rahul Mitra
  * 
  * @see ArrayList
