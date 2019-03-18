@@ -1,8 +1,22 @@
+/**
+ * Project 2 
+ * This is a Board object which is used to represent the TicTacToe Board at any given time
+ * @author Rahul Mitra
+ * 
+ * @see ArrayList
+ * 
+ */
 import java.util.*;
 class Board{
-    ArrayList<Move> emptySpots;
-    char board[][] = new char[3][3];
-    ArrayList<Score> childrenScores;
+    //instance variables
+    ArrayList<Move> emptySpots;//to store the empty spots
+    char board[][] = new char[3][3];//to store the board
+    ArrayList<Score> childrenScores;//to store the scores of all the children of the root
+    /**
+     * Constructor for the Board class
+     * @param none
+     * @return none
+     */
     public Board(){
         for ( int i = 0; i < 3; i++){
             for ( int j = 0; j < 3 ; j++){
@@ -10,6 +24,11 @@ class Board{
             }
         }
     }
+    /**
+     * Method to check if the game is over
+     * @param none
+     * @return boolean true if game won, false otherwise
+     */
     public boolean gameOver(){
         if ( this.humanWin() == true || this.AIWin() == true || this.getEmptySpots().isEmpty()){
             return true;
@@ -18,6 +37,10 @@ class Board{
             return false;
         }
     }
+    /**Method to check if the human has won
+     * @param none
+     * @return boolean true if human has won, false otherwise
+     */
     public boolean humanWin(){
         if ( this.board[0][0] == 'X' && this.board[0][1] == 'X' && this.board[0][2] == 'X'){//top row
             return true;
@@ -47,8 +70,12 @@ class Board{
             return false;
         }
     }
-    
-    public boolean AIWin(){
+    /**
+     * Method to check if the AI has won
+     * @param none
+     * @return boolean true if AI has won, false otherwise
+     */
+     public boolean AIWin(){
         if (this.board[0][0] == 'O' && this.board[0][1] == 'O' && this.board[0][2] == 'O'){//top row
             return true;
         }
@@ -77,6 +104,11 @@ class Board{
             return false;
         }
     }
+    /**
+     * Method to get all the empty spots on the board
+     * @param none
+     * @return emptySpots ArrayList<Move> list of all moves that can be made
+     */
     public ArrayList<Move> getEmptySpots(){
         emptySpots = new ArrayList<>();
         for ( int i = 0; i < 3 ; i++){
@@ -89,9 +121,20 @@ class Board{
         }
         return this.emptySpots;
     }
+    /**
+     * Method to place a move on the board
+     * @param someMove Move object that is to be placed on the board
+     * @param player char the player that is making the move
+     * @return none
+     */
     public void makeMove(Move someMove, char player){
         this.board[someMove.rowIndex][someMove.colIndex] = player;
     }
+    /**
+     * @param index int index of where the human wants to place a move
+     * @return result ArrayList<Integer> list of two elements - the first being 
+     * the human move's row index and the second being the human move's column index
+     */
     public ArrayList<Integer> humanTurn(int index){
         ArrayList<Integer> result = new ArrayList<Integer>();
         int row = 0;
@@ -140,7 +183,11 @@ class Board{
         result.add(col);
         return result;
     }
-    //got to implement returnsBestMove() here
+    /**
+     * Method to get the move with the highest score from all of the children nodes of the root node
+     * @param none
+     * @return Move object that represents the child of the root with the higest score
+     */
     public Move getBestMove(){
         int max = -10000;
         int best = -1;
@@ -152,6 +199,11 @@ class Board{
         }
         return this.childrenScores.get(best).someMove;
     }
+    /**
+     * Method to get the minimum element from an integer list
+     * @param list ArrayList<Integer> list from which minimum element is to be found
+     * @return int minimum element from list
+     */
     public int getMinFromList(ArrayList<Integer> list){
         int min = Integer.MAX_VALUE;
         int index = 0;
@@ -163,6 +215,11 @@ class Board{
         }
         return list.get(index);
     }
+    /**
+     * Method to get the maximum element from an integer list
+     * @param list ArrayList<Integer> list from which maximum element is to be found
+     * @return int maximum element from list
+     */
     public int getMaxFromList(ArrayList<Integer> list){
         int max = Integer.MIN_VALUE;
         int index = 0;
@@ -174,10 +231,22 @@ class Board{
         }
         return list.get(index);
     }
+    /**
+     * Method to invoke the minimax method
+     * @param depth int depth of tree that's passed to the minimax method
+     * @param player char player that's passed to the minimax method
+     * @return none
+     */
     public void invokeMiniMax(int depth, char player){
         childrenScores = new ArrayList<>();
         minimax(depth, player);
     }
+    /**
+     * Method that calculates the minimax scores
+     * @param depth int depth of tree that's passed to the minimax method
+     * @param player player that's passed to the minimax method
+     * @return int minimax score at each node
+     */
     public int minimax(int depth, char player){
         if (this.AIWin()){
             return 1;
@@ -208,7 +277,12 @@ class Board{
         }
         return player == 'O' ? getMaxFromList(scores): getMinFromList(scores);
     }
-    public boolean isMoveEmpty(Move someMove){
+    /**
+     * Method to check if the spot that the player is trying to move to is empty or not 
+     * @param someMove Move object that's checked against all previous moves\
+     * @return boolean true if the spot on the board is empty, false otherwise
+     */
+    public boolean isSpotEmpty(Move someMove){
         if (this.board[someMove.rowIndex][someMove.colIndex] != '_'){
             return false;
         }
@@ -217,6 +291,11 @@ class Board{
         }
 
     }
+    /**
+     * Method to print the board
+     * @param none
+     * @return none
+     */
     public void print(){
         System.out.println();
         for ( int i = 0; i < 3; i++){
