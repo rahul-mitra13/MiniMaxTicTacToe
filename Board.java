@@ -265,7 +265,7 @@ class Board{
             if ( player == 'O'){
                 this.makeMove(currentMove, 'O');
                 int currentScore = minimax(depth + 1, 'X');
-                scores.add(currentScore);
+                scores.add(minimax(depth + 1, 'X'));
                 if ( depth == 0){
                     this.childrenScores.add(new Score(currentScore, currentMove));
                 }
@@ -276,7 +276,11 @@ class Board{
             }
             this.board[currentMove.rowIndex][currentMove.colIndex] = '_';
         }
-        return player == 'O' ? getMaxFromList(scores): getMinFromList(scores);
+        if (player == 'O'){
+            return getMaxFromList(scores);
+        } else {
+            return getMinFromList(scores);
+        } 
     }
     /**
      * Method to check if the spot that the player is trying to move to is empty or not 

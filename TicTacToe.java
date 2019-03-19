@@ -18,30 +18,36 @@ public class TicTacToe{
         while (!board.gameOver()){
             System.out.println();
             int choice = sc.nextInt();
+            System.out.println();
             ArrayList<Integer> humanMove = board.humanTurn(choice);//converting the human's choice from index to a Move object
             Move humansMove = new Move(humanMove.get(0),humanMove.get(1));
             while ( !board.isSpotEmpty(humansMove)){//making sure the human has moved to valid spot on the board 
                 System.out.println();
                 System.out.println("Please choose a spot that's not occupied.");
                 System.out.println("Enter your move here: ");
+                System.out.println();
                 choice = sc.nextInt();
                 humanMove = board.humanTurn(choice);
                 humansMove = new Move(humanMove.get(0),humanMove.get(1));
                 
             }
             board.makeMove(humansMove, 'X');
+            System.out.println("After your move, this is the new board: ");
+            System.out.println();
             board.print();
             if ( board.gameOver()){
                 break;
             }
                board.invokeMiniMax(0, 'O');//calling the minimax method 
                board.makeMove(board.getBestMove(), 'O');//getting the move with the highest score from all of the children of the root node
+               System.out.println("The machine has played. This is what the new board looks like: ");
+               System.out.println();
                board.print();
          }
         if ( board.AIWin()){
             System.out.println("You lost!");
         }
-        else if ( board.humanWin()){//if this happens I've made a mistake in my implementation of minimax
+        else if ( board.humanWin()){//if this case is executed, I've made a mistake in my implementation of minimax
             System.out.println("You won!");
         }
         else{
