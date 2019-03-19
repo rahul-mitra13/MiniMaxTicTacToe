@@ -218,13 +218,13 @@ class Board{
      */
     public int minimax(int depth, char player){
         if (this.AIWin()){
-            return 1;
+            return 1;//assume AI win is a score of +1
         }
         if (this.humanWin()){
-            return -1;
+            return -1;//assume human win is a score of -1
         }
         if ( this.getEmptySpots().isEmpty()){
-            return 0;
+            return 0;//assume a draw is a score of 0
         }
         ArrayList<Move> allowedMoves = this.getEmptySpots();
         ArrayList<Integer> scores = new ArrayList<Integer>();
