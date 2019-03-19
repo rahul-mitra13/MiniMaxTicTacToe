@@ -12,7 +12,7 @@ public class Score{
     /**
      * Constructor of the Score class
      * @param s int score of the Move object
-     * @param m Move Move object
+     * @param m Move object
      * @return none
      */
     public Score(int s, Move m){

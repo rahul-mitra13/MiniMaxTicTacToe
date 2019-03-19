@@ -190,8 +190,8 @@ class Board{
      * @return Move object that represents the child of the root with the higest score
      */
     public Move getBestMove(){
-        int max = -10000;
-        int best = -1;
+        int max = Integer.MIN_VALUE;
+        int best = 0;
         for ( int i = 0; i < childrenScores.size(); i++){
             if ( this.childrenScores.get(i).score > max){
                 max = childrenScores.get(i).score;
@@ -201,38 +201,6 @@ class Board{
         return this.childrenScores.get(best).someMove;
     }
     /**
-     * Method to get the minimum element from an integer list
-     * @param list ArrayList<Integer> list from which minimum element is to be found
-     * @return int minimum element from list
-     */
-    public int getMinFromList(ArrayList<Integer> list){
-        int min = Integer.MAX_VALUE;
-        int index = 0;
-        for ( int i = 0; i < list.size(); i++){
-            if ( list.get(i) < min){
-                min = list.get(i);
-                index = i;
-            }
-        }
-        return list.get(index);
-    }
-    /**
-     * Method to get the maximum element from an integer list
-     * @param list ArrayList<Integer> list from which maximum element is to be found
-     * @return int maximum element from list
-     */
-    public int getMaxFromList(ArrayList<Integer> list){
-        int max = Integer.MIN_VALUE;
-        int index = 0;
-        for ( int i = 0; i < list.size(); i++){
-            if ( list.get(i) > max){
-                max = list.get(i);
-                index = i;
-            }
-        }
-        return list.get(index);
-    }
-    /**
      * Method to invoke the minimax method
      * @param depth int depth of tree that's passed to the minimax method
      * @param player char player that's passed to the minimax method
@@ -240,7 +208,7 @@ class Board{
      */
     public void invokeMiniMax(int depth, char player){
         childrenScores = new ArrayList<>();
-        minimax(depth, player);
+        this.minimax(depth, player);
     }
     /**
      * Method that calculates the minimax scores
@@ -255,14 +223,14 @@ class Board{
         if (this.humanWin()){
             return -1;
         }
-        ArrayList<Move> allowedMoves = this.getEmptySpots();
-        if (allowedMoves.isEmpty()){
+        if ( this.getEmptySpots().isEmpty()){
             return 0;
         }
+        ArrayList<Move> allowedMoves = this.getEmptySpots();
         ArrayList<Integer> scores = new ArrayList<Integer>();
         for ( int i = 0 ; i < allowedMoves.size(); i++){
             Move currentMove = allowedMoves.get(i);
-            if ( player == 'O'){
+            if ( player == 'O'){//computer's turn 
                 this.makeMove(currentMove, 'O');
                 int currentScore = minimax(depth + 1, 'X');
                 scores.add(minimax(depth + 1, 'X'));
@@ -270,11 +238,11 @@ class Board{
                     this.childrenScores.add(new Score(currentScore, currentMove));
                 }
             }
-            else if ( player == 'X'){
+            else if ( player == 'X'){//human's turn
                 this.makeMove(currentMove, 'X');
                 scores.add(minimax(depth + 1, 'O'));
             }
-            this.board[currentMove.rowIndex][currentMove.colIndex] = '_';
+            this.board[currentMove.rowIndex][currentMove.colIndex] = '_';//make the position empty again
         }
         if (player == 'O'){
             return getMaxFromList(scores);
@@ -310,6 +278,39 @@ class Board{
             System.out.println();
         }
         System.out.println();
+    }
+    //following are two helper functions to help in the implementation of minimax
+    /**
+     * Method to get the minimum element from an integer list
+     * @param list ArrayList<Integer> list from which minimum element is to be found
+     * @return int minimum element from list
+     */
+    public int getMinFromList(ArrayList<Integer> list){
+        int min = Integer.MAX_VALUE;
+        int index = 0;
+        for ( int i = 0; i < list.size(); i++){
+            if ( list.get(i) < min){
+                min = list.get(i);
+                index = i;
+            }
+        }
+        return list.get(index);
+    }
+    /**
+     * Method to get the maximum element from an integer list
+     * @param list ArrayList<Integer> list from which maximum element is to be found
+     * @return int maximum element from list
+     */
+    public int getMaxFromList(ArrayList<Integer> list){
+        int max = Integer.MIN_VALUE;
+        int index = 0;
+        for ( int i = 0; i < list.size(); i++){
+            if ( list.get(i) > max){
+                max = list.get(i);
+                index = i;
+            }
+        }
+        return list.get(index);
     }
 }
     
