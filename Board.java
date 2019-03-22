@@ -1,11 +1,11 @@
 /**
- * Project 2 
+ * Project 2
  * This is a Board class which is used to represent the TicTacToe Board at any given time
  * @version 1.2
  * @author Rahul Mitra
- * 
+ *
  * @see ArrayList
- * 
+ *
  */
 import java.util.*;
 class Board{
@@ -133,7 +133,7 @@ class Board{
     }
     /**
      * @param index int index of where the human wants to place a move
-     * @return result ArrayList<Integer> list of two elements - the first being 
+     * @return result ArrayList<Integer> list of two elements - the first being
      * the human move's row index and the second being the human move's column index
      */
     public ArrayList<Integer> humanTurn(int index){
@@ -141,15 +141,15 @@ class Board{
         int row = 0;
         int col = 0;
         switch(index){
-            case 1: 
+            case 1:
                     row = 0;
                     col = 0;
                     break;
-            case 2: 
+            case 2:
                     row = 0;
                     col = 1;
                     break;
-            case 3: 
+            case 3:
                     row = 0;
                     col = 2;
                     break;
@@ -157,23 +157,23 @@ class Board{
                     row = 1;
                     col = 0;
                     break;
-            case 5: 
+            case 5:
                     row = 1;
                     col = 1;
                     break;
-            case 6: 
+            case 6:
                     row = 1;
                     col = 2;
                     break;
-            case 7: 
+            case 7:
                     row = 2;
                     col = 0;
                     break;
-            case 8: 
+            case 8:
                     row = 2;
                     col = 1;
                     break;
-            case 9: 
+            case 9:
                     row = 2;
                     col = 2;
                     break;
@@ -230,7 +230,7 @@ class Board{
         ArrayList<Integer> scores = new ArrayList<Integer>();
         for ( int i = 0 ; i < allowedMoves.size(); i++){
             Move currentMove = allowedMoves.get(i);
-            if ( player == 'O'){//computer's turn 
+            if ( player == 'O'){//computer's turn
                 this.makeMove(currentMove, 'O');
                 int currentScore = minimax(depth + 1, 'X');
                 scores.add(minimax(depth + 1, 'X'));
@@ -246,12 +246,13 @@ class Board{
         }
         if (player == 'O'){
             return getMaxFromList(scores);
-        } else {
+        }
+        else {
             return getMinFromList(scores);
-        } 
+        }
     }
     /**
-     * Method to check if the spot that the player is trying to move to is empty or not 
+     * Method to check if the spot that the player is trying to move to is empty or not
      * @param someMove Move object that's checked against all previous moves\
      * @return boolean true if the spot on the board is empty, false otherwise
      */
@@ -313,4 +314,3 @@ class Board{
         return list.get(index);
     }
 }
-    
