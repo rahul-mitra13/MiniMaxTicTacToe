@@ -206,9 +206,10 @@ class Board{
      * @param player char player that's passed to the minimax method
      * @return none
      */
-    public void invokeMiniMax(int depth, char player){
+    public Move invokeMiniMax(int depth, char player){
         childrenScores = new ArrayList<>();
         this.minimax(depth, player);
+        return this.getBestMove();
     }
     /**
      * Method that calculates the minimax scores
@@ -234,9 +235,10 @@ class Board{
                 this.makeMove(currentMove, 'O');
                 int currentScore = minimax(depth + 1, 'X');
                 scores.add(minimax(depth + 1, 'X'));
-                if ( depth == 0){
-                    this.childrenScores.add(new Score(currentScore, currentMove));
-                }
+                    if ( depth == 0){
+                    Score toAdd = new Score(currentScore, currentMove);
+                    this.childrenScores.add(toAdd);
+                     }
             }
             else if ( player == 'X'){//human's turn
                 this.makeMove(currentMove, 'X');
@@ -244,11 +246,12 @@ class Board{
             }
             this.board[currentMove.rowIndex][currentMove.colIndex] = '_';//make the position empty again
         }
+
         if (player == 'O'){
-            return getMaxFromList(scores);
+            return getMax(scores);
         }
         else {
-            return getMinFromList(scores);
+            return getMin(scores);
         }
     }
     /**
@@ -286,7 +289,7 @@ class Board{
      * @param list ArrayList<Integer> list from which minimum element is to be found
      * @return int minimum element from list
      */
-    public int getMinFromList(ArrayList<Integer> list){
+    public int getMin(ArrayList<Integer> list){
         int min = Integer.MAX_VALUE;
         int index = 0;
         for ( int i = 0; i < list.size(); i++){
@@ -302,7 +305,7 @@ class Board{
      * @param list ArrayList<Integer> list from which maximum element is to be found
      * @return int maximum element from list
      */
-    public int getMaxFromList(ArrayList<Integer> list){
+    public int getMax(ArrayList<Integer> list){
         int max = Integer.MIN_VALUE;
         int index = 0;
         for ( int i = 0; i < list.size(); i++){
@@ -313,4 +316,5 @@ class Board{
         }
         return list.get(index);
     }
+
 }
