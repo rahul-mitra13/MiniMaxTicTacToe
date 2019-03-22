@@ -8,8 +8,7 @@
  * @see util
  */
 
- //IO classes
-import java.util.Scanner;
+import java.util.Scanner;//IO classes
 import java.util.*;
 public class TicTacToe{
     public static void main(String args[]){
