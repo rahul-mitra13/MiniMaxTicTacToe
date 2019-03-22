@@ -19,12 +19,19 @@ public class TicTacToe{
         while (!board.gameOver()){
             System.out.println();
             int choice = sc.nextInt();
+            while ( choice < 0 || choice > 9){//making sure that the choice is withing range
+                System.out.println();
+                System.out.println("Please enter a position that's within range.");
+                System.out.println("Enter your move here: ");
+                System.out.println();
+                choice = sc.nextInt();
+            }
             System.out.println();
             ArrayList<Integer> humanMove = board.humanTurn(choice);//converting the human's choice from index to a Move object
             Move humansMove = new Move(humanMove.get(0),humanMove.get(1));
             while ( !board.isSpotEmpty(humansMove)){//making sure the human has moved to valid spot on the board
                 System.out.println();
-                System.out.println("Please choose a spot that's not occupied.");
+                System.out.println("Please enter a move that's not already occupied.");
                 System.out.println("Enter your move here: ");
                 System.out.println();
                 choice = sc.nextInt();
