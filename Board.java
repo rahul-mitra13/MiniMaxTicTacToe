@@ -4,7 +4,7 @@
  * @version 1.2
  * @author Rahul Mitra
  *
- * @see ArrayList
+ * @see util
  *
  */
 import java.util.*;
@@ -191,14 +191,14 @@ class Board{
      */
     public Move getBestMove(){
         int max = Integer.MIN_VALUE;
-        int best = 0;
+        int index = 0;
         for ( int i = 0; i < childrenScores.size(); i++){
             if ( this.childrenScores.get(i).score > max){
                 max = childrenScores.get(i).score;
-                best = i;
+                index = i;
             }
         }
-        return this.childrenScores.get(best);
+        return this.childrenScores.get(index);
     }
     /**
      * Method to invoke the minimax method
@@ -315,6 +315,5 @@ class Board{
             }
         }
         return list.get(index);
-    }
-
-}
+    }//method
+}//class

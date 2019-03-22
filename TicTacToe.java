@@ -7,6 +7,8 @@
  * @see Scanner
  * @see util
  */
+
+ //IO classes
 import java.util.Scanner;
 import java.util.*;
 public class TicTacToe{
@@ -16,7 +18,7 @@ public class TicTacToe{
         System.out.println();
         System.out.println("Welcome to TTT! Make your move(row-major order)");
         board.print();
-        while (!board.gameOver()){
+        while (!board.gameOver()){//if the game is over, get out of the loop
             System.out.println();
             int choice = sc.nextInt();
             while ( choice < 0 || choice > 9){//making sure that the choice is withing range
@@ -39,27 +41,30 @@ public class TicTacToe{
                 humansMove = new Move(humanMove.get(0),humanMove.get(1));
 
             }
-            board.makeMove(humansMove, 'X');
+            board.makeMove(humansMove, 'X');//make the human's move
             System.out.println("After your move, this is the new board: ");
             System.out.println();
             board.print();
             if ( board.gameOver()){
                 break;
             }
-               board.makeMove(board.invokeMiniMax(0,'O'), 'O');//getting the move with the highest score
+               board.makeMove(board.invokeMiniMax(0,'O'), 'O');//getting the move with the highest minimax score for the computer and making the move
                System.out.println("The machine has played. This is what the new board looks like: ");
                System.out.println();
                board.print();
-         }
+         }//while 
         if ( board.AIWin()){
             System.out.println("You lost!");
+            System.out.println();
         }
-        else if ( board.humanWin()){//if this case is executed, I've made a mistake in my implementation of minimax
-            System.out.println("You won!");
+        else if ( board.humanWin()){//if this case is executed, my code is wrong
+            System.out.println("You won!");//you should never win!
+            System.out.println();
         }
         else{
             System.out.println("It's a draw!");
+            System.out.println();
         }
         sc.close();
-    }
-   }
+    }//main
+   }//class

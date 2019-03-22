@@ -33,5 +33,5 @@ public class Move{
         this.rowIndex = rowI;
         this.colIndex = colI;
         this.score = score;
-    }
-}
+    }//constructor 
+}//class
