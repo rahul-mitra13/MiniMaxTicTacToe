@@ -12,7 +12,7 @@ class Board{
     //instance variables
     ArrayList<Move> emptySpots;//to store the empty spots
     char board[][] = new char[3][3];//to store the board
-    ArrayList<Score> childrenScores;//to store the scores of all the children of the root
+    ArrayList<Move> childrenScores;//to store the scores of all the children of the root
     /**
      * Constructor for the Board class
      * @param none
@@ -198,7 +198,7 @@ class Board{
                 best = i;
             }
         }
-        return this.childrenScores.get(best).someMove;
+        return this.childrenScores.get(best);
     }
     /**
      * Method to invoke the minimax method
@@ -236,7 +236,7 @@ class Board{
                 int currentScore = minimax(depth + 1, 'X');
                 scores.add(minimax(depth + 1, 'X'));
                     if ( depth == 0){
-                    Score toAdd = new Score(currentScore, currentMove);
+                    Move toAdd = new Move(currentMove.rowIndex, currentMove.colIndex, currentScore);
                     this.childrenScores.add(toAdd);
                      }
             }
