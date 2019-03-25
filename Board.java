@@ -189,16 +189,16 @@ class Board{
      * @param none
      * @return Move object that represents the child of the root with the higest score
      */
-    public Move getBestMove(){
+    public Move getBestFromChildren(ArrayList<Move> list){
         int max = Integer.MIN_VALUE;
         int index = 0;
-        for ( int i = 0; i < childrenScores.size(); i++){
-            if ( this.childrenScores.get(i).score > max){
-                max = childrenScores.get(i).score;
+        for ( int i = 0; i < list.size(); i++){
+            if ( list.get(i).score > max){
+                max = list.get(i).score;
                 index = i;
             }
         }
-        return this.childrenScores.get(index);
+        return list.get(index);
     }
     /**
      * Method to invoke the minimax method
@@ -209,7 +209,7 @@ class Board{
     public Move invokeMiniMax(int depth, char player){
         childrenScores = new ArrayList<>();
         this.minimax(depth, player);
-        return this.getBestMove();
+        return this.getBestFromChildren(childrenScores);
     }
     /**
      * Method that calculates the minimax scores
@@ -218,6 +218,7 @@ class Board{
      * @return int minimax score at each node
      */
     public int minimax(int depth, char player){
+        //terminal tests for this recursive function
         if (this.AIWin()){
             return 1;//assume AI win is a score of +1
         }
@@ -236,7 +237,7 @@ class Board{
                 int currentScore = minimax(depth + 1, 'X');
                 scores.add(minimax(depth + 1, 'X'));
                     if ( depth == 0){
-                    Move toAdd = new Move(currentMove.rowIndex, currentMove.colIndex, currentScore);
+                    Move toAdd = new Move(currentMove.rowIndex, currentMove.colIndex, currentScore);//this will create a Move object with the overrided constructor
                     this.childrenScores.add(toAdd);
                      }
             }
@@ -250,13 +251,13 @@ class Board{
         if (player == 'O'){//get max if it's the computer's turn
             return getMax(scores);
         }
-        else {//get min if it's the human's turn
+        else{//get min if it's the human's turn
             return getMin(scores);
         }
     }
     /**
      * Method to check if the spot that the player is trying to move to is empty or not
-     * @param someMove Move object that's checked against all previous moves\
+     * @param someMove Move object that's checked against all previous moves
      * @return boolean true if the spot on the board is empty, false otherwise
      */
     public boolean isSpotEmpty(Move someMove){
