@@ -247,10 +247,10 @@ class Board{
             this.board[currentMove.rowIndex][currentMove.colIndex] = '_';//make the position empty again
         }
 
-        if (player == 'O'){
+        if (player == 'O'){//get max if it's the computer's turn
             return getMax(scores);
         }
-        else {
+        else {//get min if it's the human's turn
             return getMin(scores);
         }
     }
