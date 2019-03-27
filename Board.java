@@ -12,7 +12,7 @@ class Board{
     //instance variables
     ArrayList<Move> emptySpots;//to store the empty spots
     char board[][] = new char[3][3];//to store the board in a 2D array
-    ArrayList<Move> childrenScores;//to store the scores of all the children of the root
+    ArrayList<Move> childrenScores;//to store the scores of all the children of the root(used in implementation of minimax)
     /**
      * Constructor for the Board class
      * @param none
@@ -178,8 +178,6 @@ class Board{
                     row = 2;
                     col = 2;
                     break;
-            default:
-                    System.out.println("Incorrect Input.");
         }
         result.add(row);
         result.add(col);

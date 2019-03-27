@@ -1,5 +1,5 @@
 /**
- * This is a class to handle Move objects
+ * This is a class to handle Move objects i.e. a position on the TicTacToe Board
  *
  * Project 2
  *
@@ -10,7 +10,7 @@ public class Move{
     //instance variables
     int rowIndex;//row index of move
     int colIndex;//column index of move
-    int score;//to store the score associated with a move
+    int score;//the score associated with a move
     /**
      * Constructor of the Move class which initializes a Move object using only position on the board
      * @param rowI int row index of the move
