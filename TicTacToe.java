@@ -1,5 +1,5 @@
 /**
- * This is a driver program for the TicTacToe game using the miimax algorithm
+ * This is a driver program for the TicTacToe game using the minimax algorithm
  * Project 2
  * @version 1.2
  * @author Rahul Mitra
@@ -20,7 +20,7 @@ public class TicTacToe{
         while (!board.gameOver()){//if the game is over, get out of the loop
             System.out.println();
             int choice = sc.nextInt();
-            while ( choice < 0 || choice > 9){//making sure that the choice is withing range
+            while ( choice < 0 || choice > 9){//making sure that the choice is within range
                 System.out.println();
                 System.out.println("Please enter a position that's within range.");
                 System.out.println("Enter your move here: ");

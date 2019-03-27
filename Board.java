@@ -220,7 +220,7 @@ class Board{
             Move currentMove = allowedMoves.get(i);//current move
             if ( player == 'O'){//computer's turn
                 this.makeMove(currentMove, 'O');//make the move
-                int currentScore = minimax(depth + 1, 'X');//get the current minimax score
+                int currentScore = minimax(depth + 1, 'X');//recursively increase the depth
                 scores.add(minimax(depth + 1, 'X'));
                     if ( depth == 0){
                     Move toAdd = new Move(currentMove.rowIndex, currentMove.colIndex, currentScore);//this will create a Move object with the overrided constructor
@@ -228,8 +228,8 @@ class Board{
                      }
             }
             else if ( player == 'X'){//human's turn
-                this.makeMove(currentMove, 'X');
-                scores.add(minimax(depth + 1, 'O'));
+                this.makeMove(currentMove, 'X');//again, make the move
+                scores.add(minimax(depth + 1, 'O'));//recursively increase the depth
             }
             this.board[currentMove.rowIndex][currentMove.colIndex] = '_';//make the position empty again
         }
@@ -256,7 +256,7 @@ class Board{
 
     }
     /**
-     * Method to print the board
+     * Method to print the board in a clean manner
      * @param none
      * @return none
      */
@@ -270,6 +270,7 @@ class Board{
         }
         System.out.println();
     }
+    
     //following are three helper functions to help in the implementation of minimax
     
     /**
