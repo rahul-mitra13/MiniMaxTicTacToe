@@ -47,7 +47,7 @@ public class TicTacToe{
             if ( board.gameOver()){
                 break;
             }
-               board.makeMove(board.invokeMiniMax(0,'O'), 'O');//getting the move with the highest minimax score for the computer and making the move
+               board.makeMove(board.MiniMaxDecision(0,'O'), 'O');//getting the move with the highest minimax score for the computer and making the move
                System.out.println("The machine has played. This is what the new board looks like: ");
                System.out.println();
                board.print();

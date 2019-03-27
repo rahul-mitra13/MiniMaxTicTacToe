@@ -1,6 +1,6 @@
 /**
  * Project 2
- * This is a Board class which is used to represent the TicTacToe Board at any given time
+ * This is a Board class which is used to represent the TicTacToe Board 
  * @version 1.2
  * @author Rahul Mitra
  *
@@ -11,7 +11,7 @@ import java.util.*;
 class Board{
     //instance variables
     ArrayList<Move> emptySpots;//to store the empty spots
-    char board[][] = new char[3][3];//to store the board
+    char board[][] = new char[3][3];//to store the board in a 2D array
     ArrayList<Move> childrenScores;//to store the scores of all the children of the root
     /**
      * Constructor for the Board class
@@ -21,7 +21,7 @@ class Board{
     public Board(){
         for ( int i = 0; i < 3; i++){
             for ( int j = 0; j < 3 ; j++){
-                board[i][j] = '_';
+                board[i][j] = '_';//set the board to all blanks
             }
         }
     }
@@ -38,7 +38,8 @@ class Board{
             return false;
         }
     }
-    /**Method to check if the human has won
+    /**
+     * Method to check if the human has won
      * @param none
      * @return boolean true if human has won, false otherwise
      */
@@ -108,14 +109,14 @@ class Board{
     /**
      * Method to get all the empty spots on the board
      * @param none
-     * @return emptySpots ArrayList<Move> list of all moves that can be made
+     * @return emptySpots ArrayList<Move> list of all moves that can be made 
      */
     public ArrayList<Move> getEmptySpots(){
         emptySpots = new ArrayList<>();
         for ( int i = 0; i < 3 ; i++){
             for ( int j = 0 ; j < 3; j ++){
                 if (this.board[i][j] == '_'){
-                    Move spot = new Move(i, j);
+                    Move spot = new Move(i, j);//creating a Move object with only the position on the board
                     this.emptySpots.add(spot);
                 }
             }
@@ -178,38 +179,23 @@ class Board{
                     col = 2;
                     break;
             default:
-                    System.out.println("Please enter a number between 1 and 9.");
+                    System.out.println("Incorrect Input.");
         }
         result.add(row);
         result.add(col);
         return result;
     }
     /**
-     * Method to get the move with the highest score from all of the children nodes of the root node
-     * @param none
-     * @return Move object that represents the child of the root with the higest score
-     */
-    public Move getBestFromChildren(ArrayList<Move> list){
-        int max = Integer.MIN_VALUE;
-        int index = 0;
-        for ( int i = 0; i < list.size(); i++){
-            if ( list.get(i).score > max){
-                max = list.get(i).score;
-                index = i;
-            }
-        }
-        return list.get(index);
-    }
-    /**
-     * Method to invoke the minimax method
+     * Method to make a move based on minimax scores
      * @param depth int depth of tree that's passed to the minimax method
      * @param player char player that's passed to the minimax method
-     * @return none
+     * @return bestMove Move object that returns the best move for the AI
      */
-    public Move invokeMiniMax(int depth, char player){
+    public Move MiniMaxDecision(int depth, char player){
         childrenScores = new ArrayList<>();
         this.minimax(depth, player);
-        return this.getBestFromChildren(childrenScores);
+        Move bestMove = this.getBestFromChildren(childrenScores);//getting the best move
+        return bestMove;
     }
     /**
      * Method that calculates the minimax scores
@@ -228,13 +214,13 @@ class Board{
         if ( this.getEmptySpots().isEmpty()){
             return 0;//assume a draw is a score of 0
         }
-        ArrayList<Move> allowedMoves = this.getEmptySpots();
-        ArrayList<Integer> scores = new ArrayList<Integer>();
-        for ( int i = 0 ; i < allowedMoves.size(); i++){
-            Move currentMove = allowedMoves.get(i);
+        ArrayList<Move> allowedMoves = this.getEmptySpots();//getting all the allowed moves
+        ArrayList<Integer> scores = new ArrayList<Integer>();//list of scores
+        for ( int i = 0 ; i < allowedMoves.size(); i++){//iterating through all the moves
+            Move currentMove = allowedMoves.get(i);//current move
             if ( player == 'O'){//computer's turn
-                this.makeMove(currentMove, 'O');
-                int currentScore = minimax(depth + 1, 'X');
+                this.makeMove(currentMove, 'O');//make the move
+                int currentScore = minimax(depth + 1, 'X');//get the current minimax score
                 scores.add(minimax(depth + 1, 'X'));
                     if ( depth == 0){
                     Move toAdd = new Move(currentMove.rowIndex, currentMove.colIndex, currentScore);//this will create a Move object with the overrided constructor
@@ -284,7 +270,8 @@ class Board{
         }
         System.out.println();
     }
-    //following are two helper functions to help in the implementation of minimax
+    //following are three helper functions to help in the implementation of minimax
+    
     /**
      * Method to get the minimum element from an integer list
      * @param list ArrayList<Integer> list from which minimum element is to be found
@@ -312,6 +299,22 @@ class Board{
         for ( int i = 0; i < list.size(); i++){
             if ( list.get(i) > max){
                 max = list.get(i);
+                index = i;
+            }
+        }
+        return list.get(index);
+    }
+    /**
+     * Method to get the move with the highest score from all of the children nodes of the root node
+     * @param none
+     * @return Move object that represents the child of the root with the higest score
+     */
+    public Move getBestFromChildren(ArrayList<Move> list){
+        int max = Integer.MIN_VALUE;
+        int index = 0;
+        for ( int i = 0; i < list.size(); i++){
+            if ( list.get(i).score > max){
+                max = list.get(i).score;
                 index = i;
             }
         }

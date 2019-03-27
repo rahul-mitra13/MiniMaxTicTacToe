@@ -3,7 +3,7 @@
  *
  * Project 2
  *
- * @version 1.0
+ * @version 1.2
  * @author Rahul Mitra
  */
 public class Move{
