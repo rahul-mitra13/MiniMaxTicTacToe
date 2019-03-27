@@ -1,5 +1,5 @@
 
-Project Description: In this project, I've implemented the minimax algorithm to play the classic game, TicTacToe against a human opponent. The project consists of a Board.java class, a Move.java class and a driver class called TicTacToe.java where the actual program execution begins. 
+Project Description: In this project, I've implemented the minimax algorithm to play the game, TicTacToe against a human opponent. The project consists of a Board.java class, a Move.java class and a driver class called TicTacToe.java where the actual program execution begins. 
 
 Dependencies: The following commands can be used to compile these programs on a Linux OS. 
 
